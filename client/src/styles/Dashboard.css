@@ -1,0 +1,245 @@
+.dashboard {
+    padding: 20px;
+    max-width: 1400px;
+    margin: auto;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* .dashboard-header h1 {
+    font-size: 32px;
+    color: var(--foreground);
+} */
+
+.dashboard-header .button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: var(--primary);
+    color: var(--primary-foreground);
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.title-color {
+    color: var(--foreground);
+}
+
+.stat-card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    color: var(--card-foreground);
+}
+
+.stat-card h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: var(--muted-foreground);
+}
+
+.stat-card p {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--foreground);
+}
+
+.recent-projects {
+    margin-top: 40px;
+}
+
+.recent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.recent-header h2 {
+    font-size: 24px;
+    color: var(--foreground);
+}
+
+.recent-header span {
+    cursor: pointer;
+    color: var(--primary);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.project-card {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 24px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: var(--primary);
+}
+
+.project-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.project-top h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--card-foreground);
+}
+
+.status-open {
+    background: rgba(4, 120, 87, 0.2);
+    color: #34d399;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.status-closed {
+    background: rgba(185, 28, 28, 0.2);
+    color: var(--destructive);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.project-description {
+    margin: 18px 0;
+    color: var(--muted-foreground);
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+.project-money {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: var(--secondary);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.project-money > div:first-child {
+    border-right: 1px solid var(--border);
+    padding-right: 45px;
+}
+
+.project-money > div:last-child {
+    padding-left: 20px;
+}
+
+.project-money small {
+    color: var(--muted-foreground);
+}
+
+.project-money h4 {
+    margin-top: 6px;
+    font-size: 18px;
+    color: var(--foreground);
+}
+
+.progress-section {
+    margin-top: 20px;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--muted-foreground);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 9px;
+    background: var(--muted);
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, #f59e0b, #fbbf24);
+    border-radius: 30px;
+}
+
+.line {
+    margin-top: 30px;
+    margin-bottom: 5px;
+    color: var(--muted-foreground);
+}
+
+.project-footer {
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    padding-top: 18px;
+}
+
+.investors-count {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted-foreground);
+    font-size: 14px;
+}
+
+.stat-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--accent-foreground);
+}
+
+.open-icon {
+    background: rgba(4, 120, 87, 0.2);
+    color: #34d399;
+}
+
+.closed-icon {
+    background: rgba(185, 28, 28, 0.2);
+    color: var(--destructive);
+}
+
+.capital-icon {
+    background: rgba(217, 119, 6, 0.2);
+    color: #fbbf24;
+}
