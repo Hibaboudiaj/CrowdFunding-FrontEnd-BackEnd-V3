@@ -80,7 +80,11 @@ const App = () => {
                         {/*  */}
                         <Route
                             path="create-project"
-                            element={<CreateProject />}
+                            element={
+                                <PrivateRoutes role={["owner"]}>
+                                    <CreateProject />
+                                </PrivateRoutes>
+                            }
                         />
 
                         <Route
