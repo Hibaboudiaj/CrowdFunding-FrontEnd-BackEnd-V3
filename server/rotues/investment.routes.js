@@ -2,7 +2,14 @@ import { Router } from "express";
 
 const router = Router();
 
-import { createInvestmentController } from "../contollers/investment.contoller.js";
+import {
+    createInvestmentController,
+    deleteInvestmentController,
+    getAllInvestmentsController,
+    getInvestmentByIdController,
+    updateInvestmentController,
+    getInvestmentStatsController,
+} from "../contollers/investment.contoller.js";
 import validateInvestment from "../middlewares/validateInvestment.middleware.js";
 
 router.post(
@@ -10,5 +17,11 @@ router.post(
     validateInvestment,
     createInvestmentController,
 );
+
+router.get("/", getAllInvestmentsController);
+router.get("/stats", getInvestmentStatsController);
+router.get("/:id", getInvestmentByIdController);
+router.put("/:id", updateInvestmentController);
+router.delete("/:id", deleteInvestmentController);
 
 export default router;

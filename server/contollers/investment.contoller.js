@@ -6,6 +6,7 @@ import {
     getInvestmentByIdService,
     updateInvestmentService,
     deleteInvestmentService,
+    getInvestmentStatsService,
 } from "../services/investment.service.js";
 
 const createInvestmentController = async (req, res) => {
@@ -23,7 +24,8 @@ const createInvestmentController = async (req, res) => {
 };
 
 const getAllInvestmentsController = async (req, res) => {
-    const investments = await getAllInvestmentsService();
+    const investorId = req.user._id;
+    const investments = await getAllInvestmentsService(investorId);
 
     res.status(200).json({
         success: true,
@@ -58,6 +60,14 @@ const deleteInvestmentController = async (req, res) => {
         data: investment,
     });
 };
+const getInvestmentStatsController = async (req, res) => {
+    const investorId = req.user._id;
+    const stats = await getInvestmentStatsService(investorId);
+    res.status(200).json({
+        success: true,
+        data: stats,
+    });
+};
 
 export {
     createInvestmentController,
@@ -65,4 +75,5 @@ export {
     getInvestmentByIdController,
     updateInvestmentController,
     deleteInvestmentController,
+    getInvestmentStatsController,
 };
