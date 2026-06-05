@@ -66,19 +66,19 @@ const App = () => {
                         <Route
                             path="projects"
                             element={
-                                <PrivateRoutes role={["owner", "admin"]}>
+                                <PrivateRoutes role={["owner", "investor"]}>
                                     <Projects />
                                 </PrivateRoutes>
                             }
                         />
 
                         {/* Wallet and Portfolio Routes */}
-                        <Route path="wallet" element={<Wallet/>} />
+                        <Route path="wallet" element={<Wallet />} />
 
-                        <Route path="Portfolio" element={<Portfolio/>}/>
+                        <Route path="portfolio" element={<Portfolio />} />
 
                         {/*  */}
-                        
+
                         <Route
                             path="create-project"
                             element={

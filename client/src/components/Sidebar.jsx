@@ -70,9 +70,9 @@ const Sidebar = () => {
                     return null;
                 }
 
-                if (key === "projects" && user?.role === "investor") {
-                    return null;
-                }
+                // if (key === "projects" && user?.role === "investor") {
+                //     return null;
+                // }
                 if (key === "create_project" && user?.role !== "owner") {
                     return null;
                 }

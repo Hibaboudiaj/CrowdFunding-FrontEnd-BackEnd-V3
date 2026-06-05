@@ -95,7 +95,11 @@ router.post(
 
 router.get("/", roleMiddleware("owner"), getAllProjectsController);
 router.get("/stats", roleMiddleware("owner"), getProjectsStatsController);
-router.get("/all", roleMiddleware("admin"), getAllProjectsForAdminController);
+router.get(
+    "/all",
+
+    getAllProjectsForAdminController,
+);
 router.get("/:id", getProjectByIdController);
 router.put(
     "/:id",

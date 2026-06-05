@@ -20,6 +20,8 @@ import { formatDate } from "../utils/formatDate";
 import Modal from "../components/Modal";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import ProjectActions from "../components/ProjectActions";
+import InvestForm from "../components/InvestForm";
 
 const ProjectDetails = () => {
     const { selectedProject, loading, error } = useSelector(
@@ -118,6 +120,37 @@ const ProjectDetails = () => {
         setIsOpen(true);
     };
 
+    const openInvestModal = () => {
+        setModalContent({
+            title: "Confirm Investment",
+            children: (
+                <div>
+                    <p>
+                        Are you sure you want to invest in this project? This
+                        action cannot be undone.
+                    </p>
+
+                    <InvestForm />
+                    <div className="flex items-center gap-2">
+                        <button
+                            className="bg-secondary cursor-pointer transition-all duration-200 p-2 text-sm rounded  text-secondary-foreground hover:bg-secondary/80 mt-4 ml-2"
+                            onClick={closeModal}
+                        >
+                            cancel
+                        </button>
+                        <button
+                            className="bg-primary cursor-pointer transition-all duration-200 p-2 text-sm rounded  text-primary-foreground hover:bg-primary/80 mt-4"
+                            // onClick={handleInvestment}
+                        >
+                            confirm investment
+                        </button>
+                    </div>
+                </div>
+            ),
+        });
+        setIsOpen(true);
+    };
+
     useEffect(() => {
         dispatch(getProjectById(id));
     }, [dispatch, id]);
@@ -163,28 +196,12 @@ const ProjectDetails = () => {
 
                 <div className="flex flex-col items-end gap-4">
                     <ProjectStatusTag status={selectedProject?.status} />
-                    <div className="flex items-center gap-2">
-                        <button
-                            className="bg-destructive cursor-pointer transition-all duration-200 p-2 text-sm rounded  text-destructive-foreground hover:bg-destructive/80"
-                            onClick={openDeleteModal}
-                        >
-                            delete project
-                        </button>
-                        {selectedProject?.status === "active" && (
-                            <button
-                                className="bg-accent cursor-pointer transition-all duration-200 p-2 text-sm rounded  text-destructive-foreground hover:bg-accent/80"
-                                onClick={openCloseModal}
-                            >
-                                close project
-                            </button>
-                        )}
-                        <Link
-                            to={`/projects/${selectedProject?._id}/edit`}
-                            className="bg-primary cursor-pointer transition-all duration-200 p-2 text-sm rounded  text-primary-foreground hover:bg-primary/80"
-                        >
-                            edit project
-                        </Link>
-                    </div>
+                    <ProjectActions
+                        selectedProject={selectedProject}
+                        openDeleteModal={openDeleteModal}
+                        openInvestModal={openInvestModal}
+                        openCloseModal={openCloseModal}
+                    />
                 </div>
             </div>
 
