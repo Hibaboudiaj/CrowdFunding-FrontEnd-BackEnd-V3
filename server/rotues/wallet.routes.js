@@ -1,9 +1,9 @@
 import { Router } from "express";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 import {
-  getWalletController,
   depositController,
-  authMiddleware,
-} from "../middlewares/auth.middleware";
+  getWalletController,
+} from "../contollers/wallet.controller.js";
 
 const router = Router();
 
