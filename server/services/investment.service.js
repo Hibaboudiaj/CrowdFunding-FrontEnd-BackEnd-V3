@@ -2,6 +2,7 @@
 
 import Investment from "../models/Investment.model.js";
 import Project from "../models/Project.model.js";
+import User from "../models/User.model.js";
 import { CustomError } from "../utils/CustomError.js";
 
 export const createInvestmentService = async (investmentData) => {
@@ -36,11 +37,21 @@ export const createInvestmentService = async (investmentData) => {
         { new: true },
     );
 
+    const updateInvestorBalance = await User.findByIdAndUpdate(
+        investmentData.investor,
+        {
+            $inc: {
+                balance: -investmentData.amount,
+            },
+        },
+        { new: true },
+    );
+
     return { investment, newProject };
 };
 
-export async function getAllInvestmentsService() {
-    const investments = await Investment.find()
+export async function getAllInvestmentsService(investorId) {
+    const investments = await Investment.find({ investor: investorId })
         .populate("investor")
         .populate("project");
 
@@ -82,4 +93,49 @@ export async function deleteInvestmentService(investmentId) {
         throw new CustomError("Investment not found", 404);
     }
     return investment;
+}
+
+export async function getInvestmentStatsService(investorId) {
+    const investorStats = await Investment.aggregate([
+        { $match: { investor: investorId } },
+        {
+            $group: {
+                _id: null,
+                totalInvested: { $sum: "$amount" },
+                projectCount: { $sum: 1 },
+            },
+        },
+    ]);
+
+    const totalInvestments = await Investment.countDocuments({
+        investor: investorId,
+    });
+
+    const investorBalance = await User.findById(investorId).select("balance");
+
+    const totalProjectsInvestedIn = await Investment.aggregate([
+        { $match: { investor: investorId } },
+        {
+            $group: {
+                _id: "$project",
+            },
+        },
+        {
+            $count: "totalProjects",
+        },
+    ]);
+
+    const recentInvestments = await Investment.find({ investor: investorId })
+        .sort({ createdAt: -1 })
+        .limit(5)
+        .populate("project");
+
+    return {
+        totalInvestments,
+        investorBalance: investorBalance.balance,
+        totalInvested: investorStats[0]?.totalInvested || 0,
+        projectCount: investorStats[0]?.projectCount || 0,
+        totalProjects: totalProjectsInvestedIn[0]?.totalProjects || 0,
+        recentInvestments,
+    };
 }

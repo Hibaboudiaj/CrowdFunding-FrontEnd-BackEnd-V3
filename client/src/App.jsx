@@ -16,6 +16,9 @@ import Investors from "./pages/Investors";
 import Unauthorized from "./pages/Unauthorized";
 import PrivateRoutes from "./components/PrivateRoutes";
 
+import Wallet from "./pages/Wallet";
+import Portfolio from "./pages/Portfolio";
+
 const App = () => {
     return (
         <>
@@ -68,9 +71,21 @@ const App = () => {
                                 </PrivateRoutes>
                             }
                         />
+
+                        {/* Wallet and Portfolio Routes */}
+                        <Route path="wallet" element={<Wallet/>} />
+
+                        <Route path="Portfolio" element={<Portfolio/>}/>
+
+                        {/*  */}
+                        
                         <Route
                             path="create-project"
-                            element={<CreateProject />}
+                            element={
+                                <PrivateRoutes role={["owner"]}>
+                                    <CreateProject />
+                                </PrivateRoutes>
+                            }
                         />
 
                         <Route
