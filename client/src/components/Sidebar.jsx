@@ -5,7 +5,7 @@ import {
     FolderPlus,
     Home,
     LogOut,
-    MousePointer2,
+    Wallet,
     UsersRound,
 } from "lucide-react";
 import { useSelector } from "react-redux";
@@ -37,6 +37,11 @@ const NAVLINKS = {
         path: "investors",
         icon: <UsersRound size={16} />,
     },
+    wallet: {
+        name: "wallet",
+        path: "wallet",
+        icon: <Wallet size={16} />,
+    },
 };
 
 const Sidebar = () => {
@@ -66,6 +71,12 @@ const Sidebar = () => {
                 }
 
                 if (key === "projects" && user?.role === "investor") {
+                    return null;
+                }
+                if (key === "create_project" && user?.role !== "owner") {
+                    return null;
+                }
+                if (key === "wallet" && user?.role !== "investor") {
                     return null;
                 }
 

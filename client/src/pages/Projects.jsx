@@ -31,11 +31,11 @@ const Projects = () => {
 
     useEffect(() => {
         dispatch(getOwnerProjects(status));
-        // if (user && user.role === "admin") {
-        //     dispatch(getAllProjects());
-        // } else {
-        //     dispatch(getOwnerProjects());
-        // }
+        if (user && user.role === "investor") {
+            dispatch(getAllProjects());
+        } else {
+            dispatch(getOwnerProjects());
+        }
     }, [dispatch, user, status]);
 
     return (
