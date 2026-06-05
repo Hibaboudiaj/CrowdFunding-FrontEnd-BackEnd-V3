@@ -81,24 +81,28 @@ const OwnerDashabord = ({ stats }) => {
                         <ArrowRight className="ml-1 text-primary" size={16} />
                     </Link>
                 </div>
-                {/* DashboardHeaderBottom End */}
 
-                {/* DashboardBottom Start */}
-                {/* <div className="projects-grid">
-                    {projects.map((project) => (
-                        <ProjectCard key={project.id} project={project} />
-                    ))}
-                </div> */}
                 <div className="projects-grid">
-                    {stats?.topProjects?.map((project) => (
-                        <ProjectCard
-                            icon={<Rocket size={16} />}
-                            key={project._id}
-                            project={project}
-                        />
-                    ))}
+                    {stats?.topProjects?.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center py-10 text-center opacity-50">
+                            <Rocket size={32} className="mb-2 text-primary" />
+                            <p className="text-sm font-medium title-color">
+                                No projects yet
+                            </p>
+                            <p className="text-xs title-color">
+                                Create your first project to see it here
+                            </p>
+                        </div>
+                    ) : (
+                        stats?.topProjects?.map((project) => (
+                            <ProjectCard
+                                icon={<Rocket size={16} />}
+                                key={project._id}
+                                project={project}
+                            />
+                        ))
+                    )}
                 </div>
-                {/* DashboardBottom End */}
             </div>
         </div>
     );

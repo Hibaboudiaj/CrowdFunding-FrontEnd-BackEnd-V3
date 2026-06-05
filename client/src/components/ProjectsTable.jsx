@@ -1,13 +1,8 @@
-import React from "react";
 import ProjectStatusTag from "./ProjectStatusTag";
 import { Eye } from "lucide-react";
 import { Link } from "react-router-dom";
-import Modal from "./Modal";
-import { useState } from "react";
 
 const ProjectsTable = ({ projects }) => {
-    const [isOpen, setIsOpen] = useState(false);
-
     return (
         <table className="w-full text-sm text-left">
             <thead>
