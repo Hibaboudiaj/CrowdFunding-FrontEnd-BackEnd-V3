@@ -14,26 +14,15 @@ const Register = () => {
     const [role, setRole] = useState("owner");
     const [formError, setFormError] = useState("");
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleRegister = async (e) => {
         e.preventDefault();
 
         try {
-            const { token, user } = await registerApi(
-                name,
-                email,
-                password,
-                role,
-            );
-
-            localStorage.setItem("token", token);
-            localStorage.setItem("user", JSON.stringify(user));
-
-            dispatch(login({ token, user }));
+            await registerApi(name, email, password, role);
 
             toast.success("Registration successful!");
-            navigate("/");
+            navigate("/login");
         } catch (error) {
             console.log(error);
             if (error.message) {
