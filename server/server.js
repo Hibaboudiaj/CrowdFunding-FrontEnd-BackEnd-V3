@@ -1,6 +1,8 @@
 import express from "express";
 import connectDB from "./config/db.js";
 
+import walletRoutes from "./rotues/wallet.routes.js";
+
 import authRoutes from "./rotues/auth.routes.js";
 import projectRoutes from "./rotues/project.routes.js";
 import investmentRoutes from "./rotues/investment.routes.js";
@@ -35,6 +37,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //auth routes
 app.use("/api/auth", authRoutes);
+
+// wallet routes
+app.use("/api/wallet", walletRoutes);
 
 // project routes
 app.use(
