@@ -115,8 +115,13 @@ export async function closeProjectService(projectId) {
     }
     return project;
 }
-export const getProjectsStatsService = async () => {
+export const getProjectsStatsService = async (userId) => {
     const stats = await Project.aggregate([
+        {
+            $match: {
+                owner: new mongoose.Types.ObjectId(userId),
+            },
+        },
         // Add funding percentage
         {
             $addFields: {
@@ -189,7 +194,16 @@ export const getProjectsStatsService = async () => {
         },
     ]);
 
-    return stats[0];
+    return (
+        stats[0] ?? {
+            _id: null,
+            totalProjects: 0,
+            activeProjects: 0,
+            closedProjects: 0,
+            totalFunding: 0,
+            topProjects: [],
+        }
+    );
 };
 
 export const getAllProjectForAdminService = async () => {

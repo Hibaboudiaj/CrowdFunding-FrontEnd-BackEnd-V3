@@ -5,8 +5,8 @@ export const getOwnerProjects = createAsyncThunk(
     "projects/getProjects",
     async (status, thunkAPI) => {
         try {
+            console.log("Fetching projects with status:", status);
             const res = await axiosInstance.get(`/projects?status=${status}`);
-
             return res.data.data.projects;
         } catch (error) {
             return thunkAPI.rejectWithValue(

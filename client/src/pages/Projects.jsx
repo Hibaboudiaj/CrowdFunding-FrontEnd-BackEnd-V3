@@ -7,6 +7,7 @@ import {
 import ProjectsTable from "../components/ProjectsTable";
 import ProjectsFilter from "../components/ProjectsFilter";
 import { useSearchParams } from "react-router-dom";
+import { Rocket } from "lucide-react";
 
 const Projects = () => {
     const { projects, error, loading } = useSelector((state) => state.projects);
@@ -34,9 +35,11 @@ const Projects = () => {
             dispatch(getAllProjects());
             return;
         } else {
-            dispatch(getOwnerProjects());
+            dispatch(getOwnerProjects(status));
         }
     }, [dispatch, user, status]);
+
+    console.log(projects);
 
     return (
         <div>
@@ -60,11 +63,19 @@ const Projects = () => {
             {loading ? (
                 <p>Loading...</p>
             ) : projects.length > 0 ? (
-                <div className="overflow-x-visible rounded shadow-lg bg-secondary border mt-20 border-secondary ">
+                <div className="overflow-x-visible rounded shadow-lg bg-secondary border mt-20 border-secondary">
                     <ProjectsTable projects={projects} />
                 </div>
             ) : (
-                <p>No projects found.</p>
+                <div className="flex flex-col items-center justify-center py-20 text-center opacity-50">
+                    <Rocket size={40} className="mb-3 text-primary" />
+                    <p className="text-sm font-medium title-color">
+                        No projects found
+                    </p>
+                    <p className="text-xs title-color">
+                        Start by creating your first project
+                    </p>
+                </div>
             )}
         </div>
     );

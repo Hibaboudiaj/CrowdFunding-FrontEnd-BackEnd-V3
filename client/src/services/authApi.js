@@ -23,7 +23,7 @@ const registerApi = async (name, email, password, role) => {
             role,
         });
 
-        return res.data;
+        return res.data.data;
     } catch (error) {
         throw error.response.data;
     }

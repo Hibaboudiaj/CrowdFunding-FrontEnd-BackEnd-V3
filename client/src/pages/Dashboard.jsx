@@ -1,16 +1,9 @@
 import "../styles/Dashboard.css";
-import {
-    FiFolder,
-    FiCheckCircle,
-    FiXCircle,
-    FiDollarSign,
-} from "react-icons/fi";
+
 import { useEffect } from "react";
 import { getProjectsStats } from "../store/slices/projectsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import ProjectCard from "../components/ui/ProjectCard";
-import { ArrowRight, Rocket } from "lucide-react";
+
 import { getInvestmentStats } from "../store/slices/investmentsSlice";
 
 import OwnerDashabord from "../components/OwnerDashabord";
@@ -22,6 +15,10 @@ const Dashboard = () => {
     const { stats, error, loading } = useSelector((state) =>
         user.role === "owner" ? state.projects : state.investments,
     );
+
+    console.log(user.role);
+
+    console.log(stats);
 
     const dispatch = useDispatch();
 
