@@ -12,16 +12,20 @@ const ProjectsTable = ({ projects }) => {
         <table className="w-full text-sm text-left">
             <thead>
                 <tr>
-                    {["Goal Amount", "Current Amount", "Status", "Actions"].map(
-                        (header) => (
-                            <th
-                                className="px-6 py-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground"
-                                key={header}
-                            >
-                                {header}
-                            </th>
-                        ),
-                    )}
+                    {[
+                        "name",
+                        "Goal Amount",
+                        "Current Amount",
+                        "Status",
+                        "Actions",
+                    ].map((header) => (
+                        <th
+                            className="px-6 py-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground"
+                            key={header}
+                        >
+                            {header}
+                        </th>
+                    ))}
                 </tr>
             </thead>
             <tbody className="divide-y divide-border ">

@@ -193,7 +193,7 @@ export const getProjectsStatsService = async () => {
 };
 
 export const getAllProjectForAdminService = async () => {
-    const projects = await Project.find().populate("owner");
+    const projects = await Project.find({ status: "active" }).populate("owner");
     if (!projects) {
         throw new CustomError("Error fetching projects: " + error.message);
     }

@@ -30,9 +30,9 @@ const Projects = () => {
     }, [selectedFilter, setSearchParams]);
 
     useEffect(() => {
-        dispatch(getOwnerProjects(status));
         if (user && user.role === "investor") {
             dispatch(getAllProjects());
+            return;
         } else {
             dispatch(getOwnerProjects());
         }
@@ -43,15 +43,24 @@ const Projects = () => {
             <h1 className="page-heading">projects page</h1>
 
             {error && <p className="text-red-500">{error}</p>}
-            <ProjectsFilter
-                selectedFilter={selectedFilter}
-                setSelectedFilter={setSelectedFilter}
-            />
+
+            {user.role === "owner" && (
+                <div className="mt-20">
+                    <p className="text-base text-muted-foreground mb-4">
+                        Here you can view and manage your projects. Use the
+                        filter to find specific projects based on their status.
+                    </p>
+                    <ProjectsFilter
+                        selectedFilter={selectedFilter}
+                        setSelectedFilter={setSelectedFilter}
+                    />
+                </div>
+            )}
 
             {loading ? (
                 <p>Loading...</p>
             ) : projects.length > 0 ? (
-                <div className="overflow-x-visible rounded shadow-lg bg-secondary border mt-4 border-secondary ">
+                <div className="overflow-x-visible rounded shadow-lg bg-secondary border mt-20 border-secondary ">
                     <ProjectsTable projects={projects} />
                 </div>
             ) : (
