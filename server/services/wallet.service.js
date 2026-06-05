@@ -1,4 +1,5 @@
 import User from "../models/User.model.js";
+import Investment from "../models/Investment.model.js";
 
 export const depositService = async (userId, amount) => {
   if (!amount || amount <= 0) throw new CustomError("Invalid amount", 400);
@@ -29,10 +30,22 @@ export const depositService = async (userId, amount) => {
 export const getWalletService = async (userId) => {
   const user = await User.findById(userId);
 
+  const investmentTransactions = await Investment.find({
+    investor: userId,
+  }).populate("project");
+
   if (!user) throw new CustomError("User not found", 404);
 
   return {
     balance: user.balance,
-    transactions: user.transactions,
+    transactions: [
+      ...user.transactions,
+      ...investmentTransactions.map((inv) => ({
+        type: "Investment",
+        amount: inv.amount,
+        project: inv.project.name,
+        createdAt: inv.createdAt,
+      })),
+    ],
   };
 };
