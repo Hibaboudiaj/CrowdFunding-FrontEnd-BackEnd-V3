@@ -10,27 +10,29 @@ export const depositToWallet = createAsyncThunk(
       return res.data.data; // ghadi yrj3 { balance, transaction }
     } catch (error) {
       return thunkAPI.rejectWithValue(
-        error.response?.data?.message || "Something went wrong"
+        error.response?.data?.message || "Something went wrong",
       );
     }
-  }
+  },
 );
 
-// Thunk: jib rasid u historique mn API
+// jib l wallet details (balance + transactions) mn api
 export const getWallet = createAsyncThunk(
   "wallet/getWallet",
   async (_, thunkAPI) => {
+    console.log("getWallet thunk called");
     try {
       const res = await axiosInstance.get("/wallet");
+      console.log("Get Wallet response:", res.data);
       return res.data.data; // ghadi yrj3 { balance, transactions }
     } catch (error) {
       return thunkAPI.rejectWithValue(
-        error.response?.data?.message || "Something went wrong"
+        error.response?.data?.message || "Something went wrong",
       );
     }
-  }
+  },
 );
-
+//data dyl wallet ghadi tkoun f had l format { balance: number, transactions: array }
 const walletSlice = createSlice({
   name: "wallet",
   initialState: {
@@ -48,7 +50,7 @@ const walletSlice = createSlice({
       })
       .addCase(getWallet.fulfilled, (state, action) => {
         state.loading = false;
-        state.balance = action.payload.balance;
+        state.balance = action.payload.balance; // balance li rj3 mn api
         state.transactions = action.payload.transactions;
       })
       .addCase(getWallet.rejected, (state, action) => {
@@ -64,7 +66,10 @@ const walletSlice = createSlice({
       .addCase(depositToWallet.fulfilled, (state, action) => {
         state.loading = false;
         state.balance = action.payload.balance;
-        state.transactions = [action.payload.transaction, ...state.transactions];
+        state.transactions = [
+          action.payload.transaction,
+          ...state.transactions,
+        ];
       })
       .addCase(depositToWallet.rejected, (state, action) => {
         state.loading = false;
