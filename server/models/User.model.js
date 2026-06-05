@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const userSchema = new mongoose.Schema(
     {
         name: {
@@ -31,8 +32,25 @@ const userSchema = new mongoose.Schema(
                 return this.role === "investor";
             },
         },
+        transactions: [   
+            {
+                type: {
+                    type: String,
+                    enum: ["Deposit", "Investment"],
+                    required: true,
+                },
+                amount: {
+                    type: Number,
+                    required: true,
+                },
+                createdAt: {
+                    type: Date,
+                    default: Date.now,
+                },
+            },
+        ],
     },
-    { timestamps: true },
+    { timestamps: true },  
 );
 
 export default mongoose.model("User", userSchema);
