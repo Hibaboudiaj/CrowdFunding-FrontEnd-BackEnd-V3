@@ -28,12 +28,12 @@ const Register = () => {
             );
 
             localStorage.setItem("token", token);
-
-            dispatch(login({ token, user }));
             localStorage.setItem("user", JSON.stringify(user));
 
+            dispatch(login({ token, user }));
+
             toast.success("Registration successful!");
-            // navigate("/login");
+            navigate("/");
         } catch (error) {
             console.log(error);
             if (error.message) {
