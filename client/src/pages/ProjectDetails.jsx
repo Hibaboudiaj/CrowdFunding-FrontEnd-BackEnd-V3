@@ -130,19 +130,13 @@ const ProjectDetails = () => {
                         action cannot be undone.
                     </p>
 
-                    <InvestForm />
+                    <InvestForm closeModal={closeModal} />
                     <div className="flex items-center gap-2">
                         <button
                             className="bg-secondary cursor-pointer transition-all duration-200 p-2 text-sm rounded  text-secondary-foreground hover:bg-secondary/80 mt-4 ml-2"
                             onClick={closeModal}
                         >
                             cancel
-                        </button>
-                        <button
-                            className="bg-primary cursor-pointer transition-all duration-200 p-2 text-sm rounded  text-primary-foreground hover:bg-primary/80 mt-4"
-                            // onClick={handleInvestment}
-                        >
-                            confirm investment
                         </button>
                     </div>
                 </div>

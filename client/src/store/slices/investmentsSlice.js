@@ -32,10 +32,10 @@ export const getInvestmentById = createAsyncThunk(
 
 export const createInvestment = createAsyncThunk(
     "investments/createInvestment",
-    async (investmentData, thunkAPI) => {
+    async ({ projectId, investmentData }, thunkAPI) => {
         try {
             const res = await axiosInstance.post(
-                "/investments",
+                `investments/${projectId}/invest`,
                 investmentData,
             );
             return res.data;
@@ -105,7 +105,6 @@ const investmentsSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-
             .addCase(getInvestmentStats.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -116,6 +115,20 @@ const investmentsSlice = createSlice({
             })
 
             .addCase(getInvestmentStats.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
+
+        builder
+            .addCase(createInvestment.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(createInvestment.fulfilled, (state, action) => {
+                state.loading = false;
+                state.investments.push(action.payload);
+            })
+            .addCase(createInvestment.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });
