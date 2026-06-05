@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../utils/axios";
 
 export const getInvestments = createAsyncThunk(
@@ -76,3 +76,50 @@ export const deleteInvestment = createAsyncThunk(
         }
     },
 );
+
+export const getInvestmentStats = createAsyncThunk(
+    "investments/getInvestmentStats",
+    async (_, thunkAPI) => {
+        try {
+            const res = await axiosInstance.get("/investments/stats");
+            return res.data.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(
+                error.response?.data?.message || "Something went wrong",
+            );
+        }
+    },
+);
+
+const initialState = {
+    investments: [],
+    investment: null,
+    stats: null,
+    loading: false,
+    error: null,
+};
+
+const investmentsSlice = createSlice({
+    name: "investments",
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+
+            .addCase(getInvestmentStats.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getInvestmentStats.fulfilled, (state, action) => {
+                state.loading = false;
+                state.stats = action.payload;
+            })
+
+            .addCase(getInvestmentStats.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
+    },
+});
+
+export default investmentsSlice.reducer;
